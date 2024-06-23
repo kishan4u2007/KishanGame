@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+    <!-- Linking external CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styling for the entire page body */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #2980B9, #6DD5FA);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+
+        /* Styling for the calculator container */
+        .calculator-container {
+            background: #f0f3f5;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+            transition: transform 0.2s;
+            width: 300px;
+            text-align: center;
+        }
+
+        /* Hover effect for the calculator container */
+        .calculator-container:hover {
+            transform: scale(1.05);
+        }
+
+        /* Heading styling */
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Styling for input fields and buttons */
+        input[type="number"], button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            box-shadow: 2px 2px 8px #aaa, -2px -2px 8px #fff;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
+        }
+
+        /* Focus effect for input fields and buttons */
+        input[type="number"]:focus, button:focus {
+            outline: none;
+            box-shadow: 4px 4px 12px #aaa, -4px -4px 12px #fff;
+        }
+
+        /* Styling for the result display area */
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #e8f4f8;
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
+            border: 2px solid #2980B9;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Calculator Container -->
+    <div class="calculator-container">
+        <!-- Calculator Title -->
+        <h2>Tip Calculator</h2>
+
+        <!-- Input Fields -->
+        <label for="billAmount">Bill Amount ($):</label>
+        <input type="number" id="billAmount" placeholder="Enter Bill Amount">
+
+        <label for="tipPercentage">Tip Percentage (%):</label>
+        <input type="number" id="tipPercentage" placeholder="Enter Tip Percentage">
+
+        <!-- Calculate Button -->
+        <button onclick="calculateTip()">Calculate Tip</button>
+
+        <!-- Result Display Area -->
+        <div id="result"></div>
+    </div>
+
+    <!-- Linking external JavaScript file -->
+    <script>
+        function calculateTip() {
+            // Step 1: Fetch values from input fields
+            let billAmount = parseFloat(document.getElementById('billAmount').value);
+            let tipPercentage = parseFloat(document.getElementById('tipPercentage').value);
+
+            // Step 2: Validate if input fields are filled with valid numbers
+            if (isNaN(billAmount) || isNaN(tipPercentage) || billAmount < 0 || tipPercentage < 0) {
+                alert("Please fill out both fields with valid numbers!");
+                return;
+            }
+
+            // Step 3: Calculate Tip
+            let tipAmount = (billAmount * tipPercentage) / 100;
+            let totalAmount = billAmount + tipAmount;
+
+            // Step 4: Display the calculated results on the page
+            document.getElementById('result').innerHTML = `
+                <div class="calculated_result"><span>Tip Amount:</span>  <span>$${tipAmount.toFixed(2)}</span></div>
+                <div class="calculated_result"><span>Total Amount:</span>  <span>$${totalAmount.toFixed(2)}</span></div>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator</title>
+    <!-- Linking external CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styling for the entire page body */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #2980B9, #6DD5FA);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Styling for the calculator box */
+.calculator {
+    background: #f0f3f5;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    transition: transform 0.2s;
+    width: 300px;
+}
+
+/* Hover effect for the calculator box */
+.calculator:hover {
+    transform: scale(1.05);
+}
+
+/* Heading styling */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Styling for input fields and buttons */
+input[type="number"], button {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 2px 2px 8px #aaa, -2px -2px 8px #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Focus effect for input fields and buttons */
+input[type="number"]:focus, button:focus {
+    outline: none;
+    box-shadow: 4px 4px 12px #aaa, -4px -4px 12px #fff;
+}
+
+/* Styling for the button */
+button {
+    background-color: #2980B9;
+    color: white;
+    cursor: pointer;
+}
+
+/* Hover effect for the button */
+button:hover {
+    background-color: #6DD5FA;
+    transform: translateY(-2px);
+}
+
+/* Styling for the result display area */
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #e8f4f8;
+    text-align: left;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Styling for individual result items */
+#result div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Calculator Container -->
+    <div class="calculator">
+        <!-- Calculator Title -->
+        <h2>Loan Calculator</h2>
+
+        <!-- Input Fields -->
+        <label for="principal">Loan Amount ($):</label>
+        <input type="number" id="principal" placeholder="Enter Loan Amount">
+
+        <label for="interest">Interest Rate (%):</label>
+        <input type="number" id="interest" placeholder="Enter Interest Rate">
+
+        <label for="tenure">Loan Tenure (Years):</label>
+        <input type="number" id="tenure" placeholder="Enter Tenure">
+
+        <!-- Calculate Button -->
+        <button onclick="calculateLoan()">Calculate</button>
+
+        <!-- Result Display Area -->
+        <div id="result"></div>
+    </div>
+
+    <!-- Linking external JavaScript file -->
+    <script>
+        function calculateLoan() {
+    // Step 1: Fetch values from input fields
+    let principal = parseFloat(document.getElementById('principal').value);
+    let annualInterest = parseFloat(document.getElementById('interest').value);
+    let tenureYears = parseFloat(document.getElementById('tenure').value);
+
+    // Step 2: Validate if all fields are filled with valid numbers
+    if (isNaN(principal) || isNaN(annualInterest) || isNaN(tenureYears) || annualInterest<0 || annualInterest > 100 || principal < 0 || annualInterest < 0 || tenureYears <= 0) {
+        alert("Please fill out all fields with valid numbers!");
+        return;
+    }
+
+    // Step 3: Calculate Monthly Interest and Tenure in Months
+    let monthlyInterest = (annualInterest / 100) / 12;
+    let tenureMonths = tenureYears * 12;
+
+    // Step 4: Calculate EMI with Interest and Total Interest
+    let emiWithInterest = principal * monthlyInterest / (1 - Math.pow(1 + monthlyInterest, -tenureMonths));
+    let totalInterest = emiWithInterest * tenureMonths - principal;
+
+    // Step 5: Calculate Monthly Interest Amount
+    let monthlyInterestAmount = (emiWithInterest - principal / tenureMonths).toFixed(2);
+
+    // Step 6: Calculate Total Loan Amount with Interest
+    let totalLoanAmountWithInterest = (emiWithInterest * tenureMonths).toFixed(2);
+
+    // Step 7: Display the calculated results on the page
+    document.getElementById('result').innerHTML = `
+    <div class="calculated_result"><span>Loan EMI:</span>  <span>$${emiWithInterest.toFixed(2)}</span></div>
+    <div class="calculated_result"><span>Monthly Interest:</span>  <span>$${monthlyInterestAmount}</span></div>
+    <div class="calculated_result"><span>Total Loan Amount:</span>  <span>$${totalLoanAmountWithInterest}</span></div>
+    <div class="calculated_result"><span>Total Loan Interest:</span>  <span>$${totalInterest.toFixed(2)}</span></div>
+    `;
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mortgage Calculator</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f4f4f4;
+      }
+
+      .calculator-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-bottom: 20px;
+        width: 40%;
+      }
+
+      .input-group {
+        margin-bottom: 15px;
+      }
+
+      table {
+        font-family: sans-serif;
+       
+      }
+
+      .result-table table {
+        width: 100%;
+      }
+      .short-table table {
+        margin: auto;
+      }
+      table th,
+      table td {
+        padding: 0.25em 0.5em;
+        text-align: left;
+      }
+      table th:nth-child(2),
+      table td:nth-child(2) {
+        text-align: right;
+      }
+      table td {
+        background-color: #eee;
+      }
+      table th {
+        background-color: #009;
+        color: #fff;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .result-table {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 80%;
+        margin-bottom: 20px;
+        display: none;
+      }
+
+      .short-table {
+        background-color: #f2f2f2;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 80%;
+        margin-bottom: 20px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator-container">
+      <h1>Mortgage Calculator</h1>
+      <div class="input-group">
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" required />
+      </div>
+      <div class="input-group">
+        <label for="interestRate">Interest Rate:</label>
+        <input type="number" id="interestRate" step="0.1" required />
+      </div>
+      <div class="input-group">
+        <label for="loanTerm">Loan Term (years):</label>
+        <input type="number" id="loanTerm" required />
+      </div>
+      <div class="input-group">
+        <label for="currency">Currency:</label>
+        <select id="currency">
+          <option value="$">USD ($)</option>
+          <option value="€">EUR (€)</option>
+          <!-- Add more currency options as needed -->
+        </select>
+      </div>
+      <button onclick="calculateMortgage()">Calculate</button>
+    </div>
+
+    <div class="short-table">
+      <p>This table provides a brief overview of your mortgage details.</p>
+      <table id="shortTable">
+        <!-- Dynamic data will be inserted here -->
+      </table>
+    </div>
+
+    <div class="result-table">
+      <h2>Payment Schedule</h2>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      function calculateMortgage() {
+        const loanAmount = parseFloat(
+          document.getElementById("loanAmount").value
+        );
+        const interestRate = parseFloat(
+          document.getElementById("interestRate").value
+        );
+        const loanTerm = parseFloat(document.getElementById("loanTerm").value);
+        const selectedCurrency = document.getElementById("currency").value;
+
+        if (isNaN(loanAmount) || isNaN(interestRate) || isNaN(loanTerm)) {
+          alert("Please enter valid numbers for all fields.");
+          return;
+        }
+        console.log("--selectedCurrency", selectedCurrency);
+
+        // Set dynamic data for short-table
+        const shortTable = document.getElementById("shortTable");
+        shortTable.innerHTML = `
+                <tr>
+                    <th>Loan Amount</th>
+                    <td>${selectedCurrency} ${loanAmount.toFixed(2)}</td>
+                </tr>
+                <tr>
+                    <th>Interest Rate</th>
+                    <td>${interestRate}%</td>
+                </tr>
+                <tr>
+                    <th>Loan Term</th>
+                    <td>${loanTerm} years</td>
+                </tr>
+            `;
+
+        const monthlyInterest = interestRate / 100 / 12;
+        const totalPayments = loanTerm * 12;
+
+        const monthlyPayment =
+          (loanAmount * monthlyInterest) /
+          (1 - Math.pow(1 + monthlyInterest, -totalPayments));
+
+        // Clear previous results
+        const resultElement = document.getElementById("result");
+        resultElement.innerHTML = "";
+
+        // Create a concise table for results with dynamic currency formatting
+        const table = document.createElement("table");
+        table.innerHTML = `
+                <tr>
+                    <th>Payment Number</th>
+                    <th>Principal</th>
+                    <th>Interest</th>
+                    <th>Total Payment</th>
+                    <th>Remaining Loan Amount</th>
+                </tr>
+            `;
+
+        let remainingLoan = loanAmount;
+
+        for (
+          let paymentNumber = 1;
+          paymentNumber <= totalPayments;
+          paymentNumber++
+        ) {
+          const interestPayment = remainingLoan * monthlyInterest;
+          const principalPayment = monthlyPayment - interestPayment;
+
+          remainingLoan -= principalPayment;
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                    <td>${paymentNumber}</td>
+                    <td>${selectedCurrency} ${principalPayment.toFixed(2)}</td>
+                    <td>${selectedCurrency} ${interestPayment.toFixed(2)}</td>
+                    <td>${selectedCurrency} ${monthlyPayment.toFixed(2)}</td>
+                    <td>${selectedCurrency} ${remainingLoan.toFixed(2)}</td>
+                `;
+
+          table.appendChild(row);
+        }
+
+        // Display tables
+        document.querySelector(".result-table").style.display = "block";
+        document.querySelector(".short-table").style.display = "block";
+
+        // Display the table in the result element
+        resultElement.appendChild(table);
+      }
+    </script>
+  </body>
+</html>

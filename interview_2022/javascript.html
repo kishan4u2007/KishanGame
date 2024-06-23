@@ -1,0 +1,676 @@
+
+
+// https://www.codementor.io/nihantanu/21-essential-javascript-tech-interview-practice-questions-answers-du107p62z
+
+
+
+// JavaScript does not provide the multidimensional array natively. However, 
+// you can create a multidimensional array by defining an array of elements,
+// where each element is also another array. For this reason, we can say that a JavaScript multidimensional array is an array of arrays.
+
+var activities = [
+    ['Work', 9],
+    ['Eat', 2],
+    ['Commute', 2],
+    ['Play Game', 2],
+    ['Sleep', 7]
+];
+
+for (var i = 0; i < activities.length; i++) {
+    // get the size of the inner array
+    var innerArrayLength = activities[i].length;
+    // loop the inner array
+    for (var j = 0; j < innerArrayLength; j++) {
+        console.log('[' + i + ',' + j + '] = ' + activities[i][j]);
+    }
+}
+
+
+///get Percentage of multidimenstin array
+var activities = [
+    ['Work', 9],
+    ['Eat', 2],
+    ['Commute', 2],
+    ['Play Game', 2],
+    ['Sleep', 7]
+];
+
+for(var i=0; i<activities.length; i++) {
+    var percentage = ((activities[i][1] / 24) * 100).toFixed();
+    activities[i][2] = percentage + '%';
+}
+
+console.log(activities.join('\n'));
+// Output : 
+// Work,9,38%
+// Eat,2,8%
+// Commute,2,8%
+// Play Game,2,8%
+// Sleep,7,29%
+
+
+//convert multidimensional array to single array javascript
+
+// The flat() method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.
+// The depth level specifying how deep a nested array structure should be flattened. Defaults to 1.
+var activities = [
+    ['Work', 9],
+    ['Eat', 2],
+    ['Commute', 2],
+    ['Play Game', 2],
+    ['Sleep', 7]
+];
+
+activities.flat();
+
+
+//Alternative
+//reduce and concat
+var arr1 = [1, 2, [3, 4]];
+arr1.flat();
+
+//to flat single level array
+arr1.reduce((acc, val) => acc.concat(val), []);// [1, 2, 3, 4]
+
+//or
+const flatSingle = arr => [].concat(...arr);
+
+
+
+
+// Here, instanceof operator checks the current object and returns true if the object is of the specified type.
+var dog = new Animal();
+dog instanceof Animal // Output : true
+
+
+Here dog instanceof Animal is true since dog inherits from Animal.prototype.
+
+
+
+
+// array way
+
+function unique(str) {
+    let values = [];
+    for(let letter of values) {
+        if(values.indexOf(letter) !== -1) {
+            return false
+        }
+            values.push(letter);
+    }
+
+    return true;
+}
+
+/********************************************************/
+
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
+
+// usage example:
+var a = ['a', 1, 'a', 2, '1'];
+var unique = a.filter( onlyUnique ); // returns ['a', 1, 2, '1']
+
+/********************************************************/
+
+
+var myArray = ['a', 1, 'a', 2, '1'];
+
+
+let unique = [...new Set(myArray)]; 
+
+// unique is ['a', 1, 2, '1']
+/********************************************************/
+
+// usage example:
+var myArray = ['a', 1, 'a', 2, '1'];
+var unique = myArray.filter((v, i, a) => a.indexOf(v) === i); 
+
+// unique is ['a', 1, 2, '1']
+/********************************************************/
+
+
+// Object way
+function unique(str) {
+    let values = {};
+
+    for(let letter of str) {
+
+        if(values[letter]) {
+            return false
+        }
+            values[letter] = "exits";
+    }
+
+    return true;
+}
+// getDerivedStateFromProps 
+
+//getDerivedStateFromProps : is one of those newly introduced lifecycle method replacing componentWillReceiveProps, which has now become UNSAFE_componentWillReceiveProps.
+
+
+// getDerivedStateFromProps is a static method which is invoked after a component is instantiated as well as when it receives new props. 
+// Since it is a static method, you cannot access this inside this method neither you can access any other class method. 
+// Unlike componentWillReceiveProps you cannot set state inside this method, so the only way to update state is returning an object. If you don’t want to update any state, simply return null.
+
+
+componentWillReceiveProps(nextProps){
+  if(nextProps.someValue!==this.props.someValue){
+    //Perform some operation
+    this.setState({someState: someValue });
+    this.classMethod();
+  }
+}
+
+//We compare nextProps.someValue with this.props.someValue and if both are different then we perform some operation, setState and call this.classMethod();.
+
+
+static getDerivedStateFromProps(nextProps, prevState){
+   if(nextProps.someValue!==prevState.someValue){
+     return { someState: nextProps.someValue};
+  }
+  else return null;
+}
+
+/*
+// How to Prevent components from re-rendring ?
+
+- shouldComponentUpdate()  return false to stop re-rendrering
+- React.PureComponent()  // It is only work for class component not for functional components
+- React.memo : React.memo() is similar to PureComponent in that it will help us control when our components rerender.
+
+PureComponent works with classes. React.memo() works with functional components.
+
+const MyScotchyComponent = React.memo(function MyComponent(props) {
+  // only renders if props have changed!
+  return <div>my memoized component</div>;
+});
+
+
+function x() {}  // function Delcartion
+var x = function() {} // function expression
+
+-------------------*-------------------------------------------
+Q. Expalin Error Boundaries ?
+
+- static getDerivedStateFromError
+- componentDidCatch
+
+
+Q. React Pattern
+
+- context-api-pattern
+- render props : using children as a funcation
+- presnstational react pattern : 
+
+
+Q. Why would you used react in your project
+
+- decision has to be made on the project itself now there are muliple factor one is where you in the project lifecycle let' say if your project missing six month to develop you can see okay which
+framework is changing to within that six months you know if there is a huge change coming in react then i would not use react i may use something else l look at their stable versions okay second things
+i would look at is compared to anuglar or ember which are easy to confiqure but hard to use they come as a huge package like an anuglar CLI is very powerful it has testing routing everyting built-in
+so it comes as a one package compared to react you have to  pick and choose your you need to confiqure a lot if you make a worng decision then you will pay the price and also react is functional 
+programming this is the framewrok method that allows you to do a lot of javascript so if your engineers are are javascript savvy then this is the framwework for you compare to angular already you need
+to remember lots of different kind of syntax which react doesn't have there is not perfect answers for this it just you have to exlain a situation where you would use react again
+
+
+Q. what is css-in-js pattern ?
+
+Q.  why can't you update state directol
+
+
+*/
+
+/*
+
+[1,2].print();
+
+Array.prototype.print = () => {
+    let result = '';
+    this.forEach(elem => result += `${elem}` )
+}
+
+*/
+
+const til = {
+    penny :12,
+    nickel: 10,
+    dime:2,
+    quarter:12,
+    dollar:30
+}
+
+//20.47
+
+function money (total) {
+    const totalAsArry =  String(total).split(".");
+    const dollars =  totalAsArry[0]
+}
+
+money(20.47)
+// It's important to note that forceUpdate() will skip checking the logic in shouldComponentUpdate() (if you have any), 
+//where as setState() does not skip it.
+
+
+/* By default, when your component’s state or props change, your component will re-render. If your render() method depends on some other data, you can tell React that the component needs re-rendering by calling forceUpdate().
+
+Calling forceUpdate() will cause render() to be called on the component, skipping shouldComponentUpdate(). This will trigger the normal lifecycle methods for child components, including the shouldComponentUpdate() method of each child. React will still only update the DOM if the markup changes.
+
+Normally you should try to avoid all uses of forceUpdate() and only read from this.props and this.state in render(). */
+
+
+//defaultProps
+
+/* defaultProps can be defined as a property on the component class itself, to set the default props for the class. This is used for undefined props, but not for null props. For example:
+
+class CustomButton extends React.Component {
+  // ...
+}
+
+CustomButton.defaultProps = {
+  color: 'blue'
+};
+
+If props.color is not provided, it will be set by default to 'blue':
+
+render() {
+    return <CustomButton /> ; // props.color will be set to blue
+  }
+
+  If props.color is set to null, it will remain null:
+
+
+
+render() {
+    return <CustomButton color={null} /> ; // props.color will remain null
+  }
+
+  */
+
+  //check object is array or not
+
+  if( Object.prototype.toString.call( arrayList ) === '[object Array]' ) {
+    console.log('Array!');
+}
+
+
+//What will be the output of the following code?
+
+ // var output = (function(x){
+ //    delete x;
+ //    return x;
+ //  })(0);
+  
+ //  console.log(output);
+
+
+ //  The output would be 0. The delete operator is used to delete properties from an object. Here x is not an object but a local variable. delete operators don't affect local variables.
+
+
+
+/* var x = 1;
+var output = (function(){
+    delete x;
+    return x;
+  })();
+  
+  console.log(output);
+
+  The output would be 1. The delete operator is used to delete the property of an object. Here x is not an object, but rather it's the global variable of type number.
+  */
+
+
+/*
+    var x = { foo : 1};
+    var output = (function(){
+    delete x.foo;
+    return x.foo;
+  })();
+
+    console.log(output);
+
+    The output would be undefined. The delete operator is used to delete the property of an object. Here, x is an object which has the property foo, 
+    and as it is a self-invoking function, we will delete the foo property from object x. After doing so,
+    when we try to reference a deleted property foo, the result isundefined.*/
+
+
+
+/*    var Employee = {
+      company: 'xyz'
+    }
+    var emp1 = Object.create(Employee);
+    delete emp1.company
+    console.log(emp1.company);
+
+    The output would be xyz. Here, emp1 object has company as its prototype property. The delete operator doesn't delete prototype property.
+
+    emp1 object doesn't have company as its own property. You can test it console.log(emp1.hasOwnProperty('company')); //output : false. 
+    However, we can delete the company property directly from theEmployee object using delete Employee.company. Or, 
+    we can also delete the emp1 object using the __proto__ property delete emp1.__proto__.company.*/
+
+
+
+
+/*var trees = ["xyz","xxxx","test","ryan","apple"];
+delete trees[3];
+  
+  console.log(trees.length);
+
+
+The output would be 5. When we use the delete operator to delete an array element, the array length is not affected from this.
+This holds even if you deleted all elements of an array using the delete operator.
+
+In other words, when the delete operator removes an array element, that deleted element is not longer present in array. In place of value at deleted index undefined x 
+
+*/
+
+
+// SVG 
+
+// - Scalable Vector Graphics
+// - make them bigger without losing quality
+// - very small file size (quick to load)
+
+
+ACtion => State => Reducer
+
+
+Q33) How to find the length of associative Array?
+Answer: Object.keys(counterarray).length
+
+
+
+Q42) what is promise?
+Answer: Used for asynchronous interations. it has 3 internal states, pending, fulfilled and rejected.
+
+
+Q51) What is Array helper function and explain one of them?
+Answers: forEach, map,filter,find,every,some,reduce
+
+
+Const – const functions is not allow them to modify the object on which they are called, const variable used to define as constant value which will be common throughout the code.
+
+Let – It’s allowed to reassign the value inside function but the value of same variable will be same which was outside function.
+
+
+20. Explain higher-order functions in JavaScript?
+
+Higher order function is the best feature of functional programming available in JavaScript. 
+It is the function which takes a function as an argument and returns a function as a result. Some of the inbuilt higher-order functions are mapping, filtering, reduction, zipping, etc.
+
+
+
+
+-----------------------------------------
+
+
+30. Explain Event bubbling and Event Capturing in JavaScript?
+
+Event Capture and Bubbling: In HTML DOM API there are two ways of event propagation and determines the order in which event will be received. The two ways are Event Bubbling and Event Capturing. The first method event bubbling directs the event to its intended target, and the second is called event capture in which the event goes down to the element.
+
+Event Capture
+The capture procedure is rarely used but when it’s used it proves to be very helpful. This process is also called ‘trickling’. In this process, the event is captured first by the outermost element and then propagated to the innermost element. For example:
+
+<div>
+
+<ul>
+
+<li></li>
+
+</ul>
+
+</div>
+From the above example, suppose the click event did occur in the ‘li’ element, in that case capturing event it will be first handled ‘div’, then ‘ul’ and at last the target element will be hit that is ‘li’
+
+Event Bubbling
+Bubbling just works like the bubbles, the event gets handled by the innermost element and then propagated to the outer element.
+
+<div>
+ <ul>
+
+<li></li>
+
+</ul>
+
+</div>
+From the above example, suppose the click event did occur in the ‘li’ element in bubbling model the event will be handled first by ‘li’ then by ‘ul’ and at last by ‘div’ element.
+
+
+
+
+61. What is the difference between the substr() and substring() functions in JavaScript?
+
+Difference between the substr() and substring() functions in JavaScript.
+The substr() function has the form substr(startIndex,length). It returns the substring from startIndex and returns ‘length’ number of characters.
+
+var s = "hello";
+( s.substr(1,4) == "ello" ) // true
+The substring() function has the form substring(startIndex,endIndex). It returns the substring from startIndex up to endIndex – 1.
+
+var s = "hello";
+( s.substring(1,4) == "ell" ) // true
+
+
+
+
+68. Explain JavaScript Event Delegation Model?
+
+In JavaScript, there is some cool stuff that makes it the best of all. One of them is Delegation Model. 
+When capturing and bubbling, allow functions to implement one single handler to many elements at one particular time then that is called event delegation. 
+Event delegation allows you to add event listeners to one parent instead of specified nodes. That particular listener analyzes bubbled events to find a match on the child elements. 
+Many people think it to be complicated but in reality, it is very simple if one starts understanding it.
+
+
+
+Function Progamming
+
+- Pure Function : Given the same inputs, always return the same output
+   
+- Function compostion : is the process of combining two or more function in order to produce new function or persome some computation.
+    
+- Avoid shared state
+
+    Shared state : is any variable, object or memoory space that exists in a shared scope or as the property of an object being passed between scopes. A shared scope can include global scope or closure scopes. A shared scope can include global scope. often, in object oriented programming, object are shared between scopes by adding properties to the objects
+
+- Avoid Mutating State
+    Immutability : an immutable object is an object that can't be modified after it's created. A mutable object is any object which can be modified after it's created
+
+
+
+Event Loop
+----------------------
+
+The call stack is a LIFO queue (Last In, First Out).
+
+The event loop continuously checks the call stack to see if there’s any function that needs to run.
+
+While doing so, it adds any function call it finds to the call stack and executes each one in order.
+
+
+The Event Loop is a queue of callback functions. When an async function executes, the callback function is pushed into the queue. The JavaScript engine doesn't start processing the event loop until the code after an async function has executed.
+
+
+
+-----------------
+
+call : The call() method is predefined javascript method.
+
+with call(), an object can use a method belonging to another object
+
+const youtuber =  {
+    name: "Thapa",
+    content: "programming",
+    feature: function(rating) {
+    console.log(my fav youtuber name is ${this.name}. He made video on ${this.content} topics. I will give ${rating})
+  }
+
+}
+
+const youtuber2 =  {
+    name: "kuchbhi",
+    content: "programming"
+}
+
+youtuber.feature.call(youtuber2, 5)
+
+
+
+================
+
+bind : by this method, we can bind an object to a common function, so that the function gives different result when its need.
+
+the bind() method take an object as an on first argument and create a new function
+
+
+const youtuber =  {
+    name: "Thapa",
+    content: "programming",
+    feature: function() {
+    console.log(my fav youtuber name is ${this.name}. He made video on ${this.content} topics.)
+  }
+
+}
+
+let youtuberFun2 = youtuber.feature.bind(youtuber)
+
+
+-----------------------------------
+
+If element is divisible by 3 return "foo"
+If element is divisible by 5 return "bar"
+If element is divisible by both return "foo bar"
+If element is not divisible by anything then return -1
+
+
+let arr = [];
+for(let i=1;i<=100;i++){
+  arr.push(i)
+};
+arr.forEach(item=> {
+  return (item%5===0 && item%3===0) ? console.log('foobar') 
+  : item%5===0 ? console.log('bar') 
+  : item%3===0 ? console.log('foo') 
+  : console.log(item)
+})
+
+
+var arr = [7,5,2,8,9,8,6]
+// Target number: 5
+// Output: 5
+target = 11
+var closet = arr.reduce(function(prev, curr) {
+return (Math.abs(curr - target) < Math.abs(prev - target) ? curr : prev)
+})
+console.log(closet)
+
+
+
+
+-----------
+
+
+function fizzBuzz(){
+  var output, currentNumberDivisibleBy3, currentNumberDivisibleBy5;
+  for(var i=1;i<=100;i++){
+    output = '';
+    currentNumberDivisibleBy3 = (i%3 === 0);
+    currentNumberDivisibleBy5 = (i%5 === 0);
+    if(currentNumberDivisibleBy3){
+      output+='Fizz';
+    } 
+    if(currentNumberDivisibleBy5){
+      output+='Buzz';
+    } 
+    if(!currentNumberDivisibleBy3 && !currentNumberDivisibleBy5) {
+      output+=i;
+    }
+    print(output);
+  }
+}
+
+
+
+function fizzBuzz(){
+  var output;
+  for(var i=1;i<=100;i++){
+    output = '';
+    if(i%3 === 0){
+      output+='Fizz';
+    } 
+    if(i%5 === 0){
+      output+='Buzz';
+    } 
+    if(output === '') {
+      output+=i;
+    }
+    print(output);
+  }
+}
+
+
+[1,4,3,5,3,2].reduce( (s, x) => s[ x > 3 ].push(x)?s:s , {true: [], false:[]} )
+
+
+
+
+var arrNew = ["a", "b", "c", "d" ]
+function chunkArrayToGroup(arr,count){
+  let first= arr.slice(0,count)
+  let second= arr.slice(count)
+  return [first,...second]
+};
+
+//console.log(chunkArrayToGroup(arrNew,3))
+
+// ["a", "b" ""]  "c", "d"]
+
+
+let largeArr=[[4,5,3,2], [13,25,18,26], [32,35,37,39],  [1000,1001,857,1]]
+
+function largestOfFour(arr){  
+  return arr.map(row=>Math.max(...row))  
+}
+
+console.log(largestOfFour(largeArr))
+
+
+
+
+var string = "javascript is a greatest progamming languagesss"
+//{j: 1, a: 3...
+
+function countLetter(arg){
+  let output={}
+  let arr=Array.from(arg)  
+  arr.map(item=>{
+    if(output[item]===undefined){
+    output[item]=1    
+    }
+    else
+    output[item]=output[item]+1
+  })
+ return output
+}
+
+console.log(countLetter(string))
+
+
+
+let smallestNumer;
+
+for(let i = 0; i<arrayofNumber; i++) {
+
+const arrNumber = arrayofNumber[i]
+  
+  if(i === 0) {
+    smallestNumer = arrayofNumber[i]
+  }
+
+if(arrNumber < smallestNumer) {
+  smallestNumer = arrNumber
+}
+
+}
+return smallestNumer

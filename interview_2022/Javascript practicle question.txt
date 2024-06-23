@@ -1,0 +1,70 @@
+Prototypes in JS
+-------------------------
+A Javascript objefct is an entity having state and behaviour (properties and method).
+JS objects have a special property called prototype.
+we can set prototype using __proto__
+
+*if object & prototype have same method,
+object's method will be used.
+
+
+
+Class in JS
+-----------------
+class is a program-code template for creating obects.
+
+Those object will have some state(variables) & some behaviour (function) inside it
+
+
+Inheritance in JS
+---------------------
+inheritance is passing down properties & method from parent class to child class
+
+*if Child and Parent have same method, child's method will be used.[Method Overriding]
+
+
+Super Keyword
+--------------------
+The super keyword is used to call the constructor of its parent class to access the parent's properties and methods.
+
+super(args) // calls parent's constructor
+
+super.parentMethod(arg)
+
+
+
+Practicle Questions of javascipt
+
+1) Two sums  -d 
+2) Reverse Integer  -d 
+3) Check Contains Duplicate  -d
+4) invertTree  - d
+5) generateParantheses  -- D
+6) fizzBuzz  - D
+7) close Number  - D
+8) chunkArrayToGroup
+9) countLetter  - d
+10) largestOfFour -d
+11) Get Vowels Count  - d
+12) Remove duplicate -- d
+13) Anagram
+14) Find Min and Max 
+15) Capitalize your sentance
+16) Javascript Interview: Balanced Parenthesis [Very Common]
+17) isPalindrome
+18) Get Maximum Character In A String
+19) Implement Caching/Memoize 
+20) infineCurry -d
+21) calc.add(10).multiply(5).subtract(30).add(10);
+
+
+Sync in JS
+---------------------
+
+synchronous : 
+Synchronous means the code runs in partiucluar sequence of instructions given in the program.
+Each instruction waits for the previous instruction to complete its execution.
+
+Asynchronous: 
+Due to synchronous programming, sometimes imp instructions get blocked due to some previous instructions, which
+causes a delay in the UI. Asynchronous code execution allow to execute next instructions immediately and doesn't block the flow.

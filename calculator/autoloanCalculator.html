@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Loan Calculator</title>
+    <!-- Linking external CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styling for the entire page body */
+        body {
+
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(45deg, #2980B9, #6DD5FA);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .wrapper {
+            margin: 20px;
+            display: flex;
+            gap: 2;
+        }
+
+        /* Styling for the calculator box */
+        .calculator {
+            background: #f0f3f5;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+            transition: transform 0.2s;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        /* Hover effect for the calculator box */
+        .calculator:hover {
+            transform: scale(1.05);
+        }
+
+        /* Heading styling */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Styling for input fields and buttons */
+        input[type="number"],
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            box-shadow: 2px 2px 8px #aaa, -2px -2px 8px #fff;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        /* Focus effect for input fields and buttons */
+        input[type="number"]:focus,
+        button:focus {
+            outline: none;
+            box-shadow: 4px 4px 12px #aaa, -4px -4px 12px #fff;
+        }
+
+        /* Styling for the button */
+        button {
+            background-color: #2980B9;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Hover effect for the button */
+        button:hover {
+            background-color: #6DD5FA;
+            transform: translateY(-2px);
+        }
+
+
+
+        /* Styling for the result display area */
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #e8f4f8;
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
+            border: 2px solid #2980B9;
+            color: #333;
+        }
+
+        /* Styling for the detailed table */
+        table {
+            display: none;
+            /* Initially hide the table */
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #e8f4f8;
+            border: 2px solid #2980B9;
+            border-radius: 8px;
+        }
+
+
+        /* Styling for the detailed table */
+        #detailedTable {
+            display: none;
+            /* Initially hide the table */
+            width: 70%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #e8f4f8;
+            border: 2px solid #2980B9;
+            border-radius: 8px;
+            overflow: auto;
+            /* Add both horizontal and vertical scrollbars */
+            max-height: 300px;
+            /* Set maximum height for the table */
+            margin-left: 5%;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2980B9;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="calculator">
+            <!-- Calculator Title -->
+            <h2>Auto Loan Calculator</h2>
+
+            <!-- Input Fields -->
+            <label for="carPrice">Car Price ($):</label>
+            <input type="number" id="carPrice" placeholder="Enter Car Price">
+
+            <label for="downPayment">Down Payment ($):</label>
+            <input type="number" id="downPayment" placeholder="Enter Down Payment">
+
+            <label for="interestRate">Interest Rate (%):</label>
+            <input type="number" id="interestRate" placeholder="Enter Interest Rate">
+
+            <label for="loanTerm">Loan Term (Months):</label>
+            <input type="number" id="loanTerm" placeholder="Enter Loan Term">
+
+            <!-- Calculate Button -->
+            <button onclick="calculateAutoLoan()">Calculate</button>
+
+            <!-- Result Display Area -->
+            <div id="result"></div>
+        </div>
+
+
+        <!-- Detailed Table -->
+        <table id="detailedTable">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Payment</th>
+                    <th>Principal</th>
+                    <th>Interest</th>
+                    <th>Remaining Balance</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <!-- Calculator Container -->
+
+    <!-- Linking external JavaScript file -->
+    <script>
+        function calculateAutoLoan() {
+            // Step 1: Fetch values from input fields
+            let carPrice = parseFloat(document.getElementById('carPrice').value);
+            let downPayment = parseFloat(document.getElementById('downPayment').value);
+            let interestRate = parseFloat(document.getElementById('interestRate').value);
+            let loanTerm = parseFloat(document.getElementById('loanTerm').value);
+
+            // Step 2: Validate if all fields are filled with valid numbers
+            if (isNaN(carPrice) || isNaN(downPayment) || isNaN(interestRate) || isNaN(loanTerm) || interestRate < 0 || interestRate > 100 || downPayment < 0 || loanTerm <= 0) {
+                alert("Please fill out all fields with valid numbers!");
+                return;
+            }
+
+            // Step 3: Calculate Auto Loan
+            let loanAmount = carPrice - downPayment;
+            let monthlyInterest = (interestRate / 100) / 12;
+            let loanTermMonths = loanTerm;
+            let monthlyPayment = (loanAmount * monthlyInterest) / (1 - Math.pow(1 + monthlyInterest, -loanTermMonths));
+            let totalPayment = monthlyPayment * loanTermMonths;
+
+            // Step 4: Display the calculated results on the page and in the table
+            let resultHtml = `
+                <div class="calculated_result"><span>Monthly Payment:</span>  <span>$${monthlyPayment.toFixed(2)}</span></div>
+                <div class="calculated_result"><span>Total Payment:</span>  <span>$${totalPayment.toFixed(2)}</span></div>
+            `;
+
+            document.getElementById('result').innerHTML = resultHtml;
+
+            // Display detailed results in the table
+            let tableBody = document.querySelector('#detailedTable tbody');
+            tableBody.innerHTML = '';
+
+            for (let i = 1; i <= loanTermMonths; i++) {
+                let monthlyInterestPayment = loanAmount * monthlyInterest;
+                let principalPayment = monthlyPayment - monthlyInterestPayment;
+                loanAmount -= principalPayment;
+
+                let row = `
+                    <tr>
+                        <td>${i}</td>
+                        <td>$${monthlyPayment.toFixed(2)}</td>
+                        <td>$${principalPayment.toFixed(2)}</td>
+                        <td>$${monthlyInterestPayment.toFixed(2)}</td>
+                        <td>$${loanAmount.toFixed(2)}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            }
+
+            // Show the detailed table
+            document.getElementById('detailedTable').style.display = 'table';
+
+        }
+    </script>
+</body>
+
+</html>

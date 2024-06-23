@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+
+<input type="text" name="search box" onkeyup="betterfunction();">
+
+<script type="text/javascript">
+
+function largestOfFour(arr) {
+	var maxes = [];
+
+	for(var i = 0; i<arr.length; i++) {
+		var tempMax = arr[i][0];
+		for(j=0; j<arr[i].length; j++) {
+			var currentElemet = arr[i][j];
+			if(currentElemet >= tempArr) {
+				tempArr = currentElemet
+			}
+		}
+
+		maxes.push(tempMax)
+	}
+	return maxes
+}
+	// const ary = [1,2,3,4];
+
+	// //1  - 2, 3, 4
+	// //2 -  1,3,4
+
+	// findMaxMinNumber (array) {
+
+	// 	let minNumner = Math.min.apply(null, array);
+	// 	let maxNumber = Math.max.apply(null, array);
+
+	// 	let arraySum = array.reduce((i,t) => i + t );
+
+	// 	let minSum =   arraySum - minNumner;
+	// 	let MaxSum = 	arraySum - maxNumber;
+
+	// 	return JSON.stringify({ minSum: minSum,  MaxSum: MaxSum });
+
+	// }
+
+	// alert(findMaxMinNumber(ary))
+	
+	//1  - 2, 3, 4
+	//2 -  1,3,4
+
+/*-------------------------------------------------------------------------------------------------------*/
+	//Debouncing Example : Debouncing in JavaScript is a practice used to improve browser performance. There might be some functionality in a web page which requires time-consuming computations. If such a method is invoked frequently, it might greatly affect the performance of the browser, as JavaScript is a single threaded language. Debouncing is a programming practice used to ensure that time-consuming tasks do not fire so often, that it stalls the performance of the web page. In other words, it limits the rate at which a function gets invoked.
+
+	let count = 0;
+	const getData = () => {
+		//call API and Get Data
+		console.log("API Trigger" + count++);
+	}
+
+	const debounce = (fu, d) => {
+		let timer;
+		return function() {
+			let context = this;
+			 args = arguments
+			clearTimeout(timer);
+			timer = setTimeout(() => {
+				getData.apply(context, args);
+			},d)	
+		}
+	}
+
+	const betterfunction = debounce(getData, 300);
+
+	// fn.apply(content, arg)
+
+/*-------------------------------------------------------------------------------------------------------*/
+
+//Event Bubbling and Caputing are two ways of event propogation in the Dom tree.
+//Event Caputring is also known as Event Trickling 
+
+//addEventHandler('click', () => {}(/*callback functions*/), useCapture(true/false))
+
+ /*document.querySelector('#text').addEventListner('click', () => {
+	console.log('hi');
+ })
+*/
+//if usercapture is true means, event captureing mode are enable and event capture down or trikling down on dom.
+//if you don't pass any parameter or userCapture false it mean event is bubble up
+
+ 
+/*-------------------------------------------------------------------------------------------------------*/
+
+// Event Delegation : Event delegation is technique to handle event in our web page in a better way. event delegation based on
+// on the concept of event bubbling, if event bubbling exit then event delegation exit.
+
+/*Capturing and bubbling allow us to implement one of most powerful event handling patterns called event delegation.
+The idea is that if we have a lot of elements handled in a similar way, then instead of assigning a handler to each of them – we put a single handler on their common ancestor.
+In the handler we get event.target, see where the event actually happened and handle it.*/
+
+// Benifit : 
+// 1) Impove Memory : we attaching sigle event handler so it save lot's of memory. it imporve lots in memory
+// 2) write less code : we need write less code beacuse we are attaching event to parent element
+// 3) Dom Manipulation : 
+
+
+//Limitation : all the events are not bubbled up like blur, focus, resizing of window, scrolling 
+
+
+/*-------------------------------------------------------------------------------------------------------*/
+
+/*
+ __proto__ is the actual object that is used in the lookup chain to resolve methods. 
+ It is a property that all objects have. This is the property which is used by the JavaScript 
+ engine for inheritance. According to ECMA specifications it is supposed to be an internal property, 
+ however most vendors allow it to be accessed and modified.
+
+<b>prototype</b>d
+ prototype is a property belonging only to functions. It is used to build __proto__ 
+ when the function happens to be used as a constructor with the <i>new</i> keyword
+
+*/
+
+// sum(1)(2)(3)(4)
+
+let sum = function(a) {
+	return function(b) {
+		if(b) {
+			return sum(a + b)
+		}else {
+			return a;
+		}
+		
+	}
+}
+
+console.log(sum(1)(2)(3)(4)(5)())
+
+
+
+
+/*-------------------------------------------------------------------------------------------------------*/
+
+///Bind : it returns us a method which we call later, or bind is just used it created a copy of method which we invoked later or used it later..
+
+// bind and call : bind created a copy which invoked later but call used to invoked a function directly.
+
+
+</script>
+
+<body>
+
+</body>
+</html>
+
+
+
+<!--
+clouser is action that is inner function can have access to the outer function variable as well as all the glbal variables.
+ -->
+
+
+Execute Context :  A box, a container, or a wrapper which store variables and which a piece of our code is evaluted and executed 
+

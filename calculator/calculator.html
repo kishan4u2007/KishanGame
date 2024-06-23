@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .calculator {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: right;
+            border: none;
+            border-radius: 4px;
+            background-color: #f5f5f5;
+            color: #333333;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            width: 25%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .row:last-child {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="row">
+            <button onclick="appendToDisplay('(')"> ( </button>
+            <button onclick="appendToDisplay(')')"> ) </button>
+            <button onclick="clearDisplay()"> C </button>
+            <button onclick="calculateSquareRoot()"> √ </button>
+        </div>
+        <div class="row">
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('/')">/</button>
+        </div>
+        <div class="row">
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('*')">*</button>
+        </div>
+        <div class="row">
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('-')">-</button>
+        </div>
+        <div class="row">
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="calculatePercentage()">%</button>
+            <button onclick="appendToDisplay('+')">+</button>
+        </div>
+        <div class="row">
+            <button onclick="clearDisplay()"> AC </button>
+            <button onclick="backspace()"> ← </button>
+            <button onclick="calculateResult()"> = </button>
+        </div>
+    </div>
+
+    <script>
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function backspace() {
+            const currentDisplay = document.getElementById('display').value;
+            document.getElementById('display').value = currentDisplay.slice(0, -1);
+        }
+
+        function calculateResult() {
+            try {
+                const result = eval(document.getElementById('display').value);
+                document.getElementById('display').value = result;
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+        function calculatePercentage() {
+            const currentValue = parseFloat(document.getElementById('display').value);
+            if (!isNaN(currentValue)) {
+                document.getElementById('display').value = currentValue / 100;
+            }
+        }
+
+        function calculateSquareRoot() {
+            const currentValue = parseFloat(document.getElementById('display').value);
+            if (!isNaN(currentValue) && currentValue >= 0) {
+                document.getElementById('display').value = Math.sqrt(currentValue);
+            } else {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>

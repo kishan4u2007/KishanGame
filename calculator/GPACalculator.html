@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add your styling here */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f3f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            background-color: #2980B9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #6DD5FA;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #e8f4f8;
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
+            border: 2px solid #2980B9;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- GPA Calculator Container -->
+    <div class="calculator-container">
+        <!-- GPA Calculator Title -->
+        <h2>GPA Calculator</h2>
+
+        <!-- Input Fields -->
+        <label for="courseName">Course Name:</label>
+        <input type="text" id="courseName" placeholder="Enter Course Name">
+
+        <label for="creditHours">Credit Hours:</label>
+        <input type="number" id="creditHours" placeholder="Enter Credit Hours">
+
+        <label for="grade">Grade:</label>
+        <input type="text" id="grade" placeholder="Enter Grade">
+
+        <!-- Add Course Button -->
+        <button onclick="addCourse()">Add Course</button>
+
+        <!-- Result Display Area -->
+        <div id="result"></div>
+
+        <!-- Reset Button -->
+        <button onclick="resetCalculator()">Reset Calculator</button>
+    </div>
+
+    <script>
+        // Array to store courses
+        let courses = [];
+
+        function addCourse() {
+            // Fetch values from input fields
+            let courseName = document.getElementById('courseName').value;
+            let creditHours = parseFloat(document.getElementById('creditHours').value);
+            let grade = document.getElementById('grade').value.toUpperCase();
+
+            // Validate input
+            if (courseName.trim() === '' || isNaN(creditHours) || creditHours <= 0 || grade.trim() === '') {
+                alert("Please fill out all fields with valid values.");
+                return;
+            }
+
+            // Add course to the array
+            courses.push({ courseName, creditHours, grade });
+
+            // Update the result display
+            displayResult();
+
+            // Clear input fields
+            document.getElementById('courseName').value = '';
+            document.getElementById('creditHours').value = '';
+            document.getElementById('grade').value = '';
+        }
+
+        function displayResult() {
+            // Display the result
+            let resultHtml = '<h2>Course List</h2>';
+            resultHtml += '<ul>';
+
+            // Loop through courses and display them
+            courses.forEach(course => {
+                resultHtml += `<li>${course.courseName} - ${course.creditHours} credit hours - Grade: ${course.grade}</li>`;
+            });
+
+            resultHtml += '</ul>';
+            document.getElementById('result').innerHTML = resultHtml;
+        }
+
+        function resetCalculator() {
+            // Reset the courses array
+            courses = [];
+
+            // Clear the result display
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
