@@ -1,0 +1,476 @@
+Pure component: Use pure component instead of simple component when you want to stop unnecessary re-rendering of the component.
+Never bind the method or derive data into the render method because it increases the re-rendering rate of child component.
+Pure component can increase the performance of the application, but use the pure component if you really need it because extra and unnecessary use can degrade the application performance also.
+Not only pure component stops the re-rendering itself, it also stops the re-rendering of the child component. Also best use of the pure component is when you don't have any child component of pure component and don't have any kind of dependency on global state of application.
+Pure component will not render if you mutate the array of object that you are passing as props to pure component from the parent component.
+
+
+
+STATELESS COMPONENT declared as a function that has no state and returns the same markup given the same props.
+
+These components must not retain internal state, do not have backing instances, and do not have the component lifecycle methods. They are pure functional transforms of their input, with zero boilerplate. However, you may still specify .propTypes and .defaultProps by setting them as properties on the function, just as you would set them on an ES6 class.
+
+Stateless Components are easy and fast to implement. They are good for very small UI view where re-render cost won’t matter that much. They provide cleaner code and less number of files to deal with.
+
+PURE COMPONENT is one of the most significant ways to optimize React applications. The usage of Pure Component gives a considerable increase in performance because it reduces the number of render operation in the application.
+
+This is because PureComponent changes the life-cycle method shouldComponentUpdate and adds some logic to automatically check whether a re-render is required for the component. This allows a PureComponent to call the method render only if it detects changes in state or props.
+
+
+
+When to use Pure Components?
+
+Suppose you are creating a dictionary page in which you display the meaning of all the English words starting with A. Now you can write a component which takes a word and its meaning as props and return a proper view. And suppose you using pagination to display only 10 words at a time and on scroll asking for another 10 words and updating the state of the parent component. Pure Components should be used in this case as it will avoid rendering of all the words which rendered in previous API request.
+
+Also in cases where you want to use lifecycle methods of Component then we have to use Pure Components as stateless components don't have lifecycle methods.
+
+
+
+class Welcome extends React.PureComponent {  
+  render() {
+    return <h1>Welcome</h1>
+  }
+}
+
+Hello = () => {
+  return <h1>Hello</h1>;
+}
+
+
+
+const  ary = [1-100] //1 number is missing
+
+//Exp1
+
+
+let len = ary.length;
+let total = n*(n+1)/2
+
+let arrayTotal = ary.reduce((t,i) => t + i );
+
+console.log(total -  arrayTotal);
+
+
+//Exp2
+
+function x(ary) {
+  const ary2 = ary.sort( (a,b) => b-a)
+
+  for (let i =1; i < ary2.length; i++) {
+    if(ary2[i] !==i) {
+      return ary2[i]
+    }else {
+      console.log("check another")
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Recursion: is a programming term that means a “self-calling” function. Such functions can be used to solve certain tasks in elegant ways. When a function calls itself, that's called a recursion step. The basis of recursion is function arguments that make the task so simple that the function does not make further calls.
+
+
+Simple Way: 
+
+function pow(x, n) {
+  let result = 1;
+
+  // multiply result by x n times in the loop
+  for (let i = 0; i < n; i++) {
+    result *= x;
+  }
+
+  return result;
+}
+
+alert( pow(2, 3) ); // 8
+
+
+Recursion Way: 
+
+function pow(x, n) {
+  if (n == 1) {
+    return x;
+  } else {
+    return x * pow(x, n - 1);
+  }
+}
+
+alert( pow(2, 3) ); // 8
+
+
+
+
+
+Curry Function : currying is the process of breaking down a function into a series of functions that each take a single argument.
+
+Simple :
+function sum3(x, y, z) {
+  return x + y + z;
+}
+console.log(sum3(1, 2, 3) // 6
+
+Currying :
+
+function sum3(x) {
+  return (y) => {
+    return (z) => {
+      return x + y + z;
+    };
+  };
+}
+console.log(sum3(1)(2)(3)) // 6
+
+The curried version of sum3 behaves a differently. It accepts one argument and returns one function. The returned function also accepts one argument and also returns another function that also accepts one argument and …
+
+This cycle continues until the returned function accepts the last argument. The last one in the chain, finally returns the sum.
+
+This works because JS supports closures.
+
+
+
+
+
+
+
+When a function return an another function the returning function will hold it's envrionment basically all the variables is needed it's envrionment
+
+
+Advantage Closure
+-----------------------
+1) With a function closure you can store data in a separate scope, and share it only where necessary.
+
+2) Closures are necessary in javascript due to the fact that most API's that require callback functions (for instance, an "onclick" function) do not provide other mechanisms to send parameters to those callback functions (or to explicitly set the "this" pointer). Instead, you need to use closures to allow the callback to access variables in the "parent" function.
+
+
+
+Disadvantage Closure
+-----------------------
+
+1) As long as closures are active, this memory cannot be garbage collected.
+
+2) creating functions inside other functions lead to duplication in memory, potentially slowing down the application.
+
+
+
+//sudo element single colon fo sudo class and double collon for sudo element
+// data attribute :
+In a HTML if you want to store data you can use data attribute beacause reqular attribute are not suitable to store data, data attribute is desing for store data
+
+
+
+
+
+
+
+
+Four Pillars of Object Oriented Programming?
+
+1.Abstraction
+abstraction reduces code complexity and at the same time it makes your aesthetically pleasant.
+
+What interesting about each point is you do all your actions with just one touch and you don’t need to worry about how its happening like when you touched on Enter a pickup point then how the map is opened and how that pointer points to your location? Did you need to know that? What you concern about at that point was to locate my location correctly, and that’s it! and that’s exactly what Uber App doing for you (i.e. information hiding).
+
+
+2.Encapsulation
+Remember, Encapsulation is not data hiding, but Encapsulation leads to data hiding
+
+openCamera() function. Initially you just have a function which opens camera for you! nothing else. Then you have got a new idea in a shape of (Zoom in) feature. To implement this idea you only have to update your OpenCamera() function. The point that needs to understand here is you don’t need to worry about anything outside of this function. You just go to the function, make some changes and BOOM!. That is what Encapsulation offers you (the mechanism of implementing class and function and making things together).
+
+
+3.Inheritance
+The ability of creating a new class from an existing class. 
+
+4. Polymorphism
+Polymorphism is the ability of an object to change behavior on runtime
+
+Lets try to understand it. When user searches for something (ALLAH HU AKBAR) in this case. so by default SearchItems () of ALLSearch class will be called. Similarly when user clicks on Images to see the Image of the search query then SearchItems() of ImageSearch class will be called. The point that needs to understand here that redefining of function is done here and secondly object of Search class can be appeared in many forms (like object of AllSearch, ImageSearch etc) implementation of the above example in Java can be done as follow
+
+
+
+Value Types and Reference Types in JavaScript ?
+
+Value type:
+- strings
+- numbers
+- booleans
+- null
+- undefined
+
+
+Reference Type: 
+
+- Objects
+- Arrays
+- Functions
+
+
+Value types are immutable
+
+  Val: 
+   var x = 'apple'; x.toUpperCase() // "APPLE"
+   console.log(x) //apple
+
+
+  Ref:
+   var x = { title: 'apple' }
+   x.title = x.title.toUpperCase();
+   onsole.log(x) //APPLE
+
+
+ value types are compiared by value.
+ 
+ var x = 'apple'; var y = 'apple'; x==y
+ //true
+
+ var x = { title: 'apple' }; y = { title: 'apple' }  x == y
+ //false
+beacuse they are reference type and take a reference to another memory
+x == y
+222 == 333
+
+
+value types are copied by value.
+
+var x = 'apple';
+var y = x;
+
+var x = { title: 'apple' }; var y = x;
+x.title = "Orange"
+console.log(y)
+//Orange
+
+
+
+
+
+//Plugman for custom plugins
+
+Iterators: In JavaScript an iterator is an object which defines a sequence and potentially a return value upon its termination. More specifically an iterator is any object which implements the Iterator protocol by having a next() method which returns an object with two properties: value, the next value in the sequence; and done, which is true if the last value in the sequence has already been consumed. If value is present alongside done, it is the iterator's return value.
+
+Why arrow functions are different than "regular" JavaScript functions?
+Arrow functions are an improvement comparing to ES5 and prior, first because they are less verbose. You code less when using them. A second reason is the arrow function uses the 'this' of its lexical content. Losing the 'this' is a common scenario if you developed in ES5 and previous versions before. Though there are patterns to overcome it, ES6 offers 'off the shelve' solution.
+
+
+List some new features of ES6
+New Features in ES6.
+Support for constants (also known as “immutable variables”)
+Block-Scope support for both variables, constants, functions
+Arrow Functions
+Extended Parameter Handling
+Template Literals
+Extended Literals
+Enhanced Regular Expression
+Enhanced Object Properties
+Destructuring Assignment
+Modules, Classes, Iterators, Generators
+Support for Map/Set & WeakMap/WeakSet
+Promises, Meta-Programming ,Internationalization & Localization
+Read More from http://es6-features.org/
+
+
+
+What are template literals in Es6?
+Template literals are the string with embedded code and variables inside. Template literal allows concatenation and interpolation in much more comprehensive and clear in comparison with prior versions of ECMAScript.
+
+//In ES6 concatenation and interpolation is done by backtick “ in a single line. To interpolate a variable simply put in to {} braces forwarded by $ sign.>/p>
+
+
+What is Spread Operator in ES6?
+
+Spread Operator provides a new way to manipulate array and objects in Es6.
+Spread Operators: will help you create a shallow copy of objects and array and also it allow you to merge two objects or array
+
+
+The rest operator: is used to get the arguments list passed to function on invocation and in array destructure. A case when the operator gathers the rest remained after the operation.
+
+
+
+
+Explain Destructuring Assignment in ES6?
+
+Destructing assignment in another improvement in Es6. It allows us to extract data from array and objects into separate variables.
+I am trying to access the property of the object and assign to a variable, Desturctring is a very helpful.
+
+var foo = ['one', 'two', 'three'];
+
+var [one, two, three] = foo;
+console.log(one); // "one"
+console.log(two); // "two"
+console.log(three); // "three"
+
+
+//784995. gas bookin Ref. No.
+
+
+
+
+
+
+
+
+
+
+
+
+Strict mode and forcing 'this'.
+In strict mode, for example, If you were to declare a function and not define it's 'this', the JavaScript engine will not force it to be the window object and it will be set to undefined. Let's see an example:
+
+'use strict';
+
+   var functionProperty = function(){
+        console.log(this);
+    }
+
+functionProperty(); //undefined
+
+
+
+
+
+
+#8: Explain Async/Await, how it works and how it provides different feel and syntax than using Promise callbacks.
+Answer:
+
+Async functions were introduced in ES8 and serve as a new feature for cleaner handling of Promises responses, errors and more. 
+
+Main Benefits of using Async/Await:
+
+Less code.
+Synchronous feel for asynchronous code.
+
+const getData = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("data");
+    }, 3000);
+  });
+}
+
+
+const makeAsync = () => {
+
+    getData().then(data => { 
+        console.log(data);
+    });
+
+}
+
+makeAsync(); //"data" after 3 seconds.
+
+
+
+What we have here is a typical way of using data returned form promise. Let's see how the same behavior can be implemented using Async function and `await`.
+
+const makeAsync = async () => {
+  const result = await getData();
+    console.log(result);
+  
+}
+
+makeAsync();
+
+
+
+
+
+
+
+
+
+
+Question #10: Propose a newer way to determine if an array contains a certain element.
+
+A common way of knowing if an array contains a certain element is using `indexOf()`. 
+
+var myArray = [3, 6, "word", "text"]; //our array
+
+myArray.indexOf(3); //0
+
+myArray.indexOf(6); //1
+
+myArray.indexOf("text"); //3
+
+`indexOf();` returns the index position of the passed value.
+
+
+Answer:
+
+
+One way of doing that is using the Array.prototype.includes().
+
+The method returns a boolean and not the index. 
+
+Here is an example of the workings of the method:
+
+
+let myArray = [3, 6, "word", "text"]; //our array
+
+myArray.includes(3) //true
+
+myArray.includes(55) //false
+
+myArray.includes("word") //true
+
+myArray.includes("Word") //false
+
+
+
+
+
+
+
+
+
+
+
+Benifits Of SSR
+
+1) Faster load Times
+2) Improved SEO
+
+
+//lexical Scope : variable that has been define in upper scope this is automatically available inside scope, we dont to defined again
+
+	/* 
+
+	Functional (StateLess Components) : -
+
+	 1) Received Props as a arugments
+	 2) No Internal State
+	 3) No Lifecyle Methods
+
+
+	*/
+
+
+	Class-Based (Stateful Components) :
+
+	Access props via this.props
+
+
+<Switch> returns only one first matching route.
+
+exact returns any number of routes that match exactly.
+
+
+The Profiler measures how often a React application renders and what the “cost” of rendering is. Its purpose is to help identify parts of an application that are slow and may benefit from optimizations such as memoization.
+
+
+
+
+
+
+

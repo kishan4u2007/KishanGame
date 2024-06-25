@@ -1,0 +1,167 @@
+
+// function ShoppingCart(cartName) {
+// 	this.items = [];
+// 	this.addItem = function (item) {
+// 	  this.items.push(item);
+// 	}
+
+
+// 	this.removeItem = function (item) {
+// 		var index = this.items.indexOf(item);
+// 		if(index !== -1) {
+// 			this.items.splice(index, 1)
+// 		}
+
+// 	}
+
+
+// 	this.DisplayCart = function () {
+// 		for(var i=0; i<this.items.length; i++) {
+// 			console.log(this.items[i])
+// 		}
+// 		console.log('********************');
+// 	}
+// }
+
+
+
+// var groceryCart = new ShoppingCart('Grocery')
+
+// groceryCart.addItem("Onion");
+// groceryCart.addItem("Cornflakes");
+// groceryCart.DisplayCart();
+
+// groceryCart.removeItem('Onion');
+// groceryCart.DisplayCart();
+
+
+/*------------------------------------------------------*/
+
+//*********************** Standard Module Parttern ******************************************
+
+function ShoppingCartFacotry(cartName) {
+	// "Private"  variable define here...
+	var items = [];
+	var unavailableItems = ['Shampoo', 'Biscutts']
+	
+	// "Private" method define here...
+	function isAvailable(item) {
+		return unavailableItems.indexOf(item) === -1;
+	}
+
+
+	return {
+		//"Public" Properties and method
+		addItem : function(item) {
+			if(isAvailable(item)) {
+				items.push(item);
+			}
+		},
+		removeItem : function(item){
+			var index = items.indexOf(item);
+			if(index !== -1) {
+				items.splice(index, 1)
+			}
+		},
+		DisplayCart : function () {
+			for(var i=0; i<items.length; i++) {
+				console.log(items[i])
+			}
+			console.log('********************');
+			}
+
+	}
+}
+
+
+var groceryCart = ShoppingCartFacotry('Grocery');
+var gadgtsCart = ShoppingCartFacotry('Grocery');
+
+groceryCart.addItem("Onion");
+groceryCart.addItem("Cornflakes");
+groceryCart.DisplayCart();
+
+groceryCart.items = {};  //this has no effect now
+
+gadgtsCart.addItem('Samsung Galexy')
+gadgtsCart.DisplayCart();
+
+
+groceryCart.removeItem('Onion');
+groceryCart.DisplayCart();
+
+
+
+
+//********** Revealing Module Parttern ********************************
+
+//Benefit Only is this is more readable
+
+function ShoppingCartFacotry(cartName) {
+	// "Private"  variable define here...
+	var items = [];
+	var unavailableItems = ['Shampoo', 'Biscutts']
+	
+	// "Private" method define here...
+	function isAvailable(item) {
+		return unavailableItems.indexOf(item) === -1;
+	}
+
+	function addItem(item) {
+		if(isAvailable(item)) {
+			items.push(item);
+		}
+	}
+	function removeItem(item){
+		var index = items.indexOf(item);
+		if(index !== -1) {
+			items.splice(index, 1)
+		}
+	}
+	function DisplayCart () {
+		for(var i=0; i<items.length; i++) {
+			console.log(items[i])
+		}
+		console.log('********************');
+	}
+
+	return {
+		//"Public" Properties and method
+		addItem : addItem,
+		removeItem : removeItem,
+		DisplayCart : DisplayCart
+
+	}
+}
+
+
+var groceryCart = ShoppingCartFacotry('Grocery');
+var gadgtsCart = ShoppingCartFacotry('Grocery');
+
+groceryCart.addItem("Onion");
+groceryCart.addItem("Cornflakes");
+groceryCart.DisplayCart();
+
+groceryCart.items = {};  //this has no effect now
+
+gadgtsCart.addItem('Samsung Galexy')
+gadgtsCart.DisplayCart();
+
+
+groceryCart.removeItem('Onion');
+groceryCart.DisplayCart();
+
+
+
+
+function loadScripts(src) {
+
+	var script = document.createElement('script');
+
+	script.type = 'text/javascript';
+	script.src = src;
+
+	document.body.appendChild(script)
+
+
+}
