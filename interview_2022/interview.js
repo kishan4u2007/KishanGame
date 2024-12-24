@@ -234,7 +234,7 @@ function capitalize(sentence) {
   }, "");
 }
 
-// option 3 reduces
+// option 3 for loop
 function capitalize(sentence) {
   const word = [];
   for (let word of sentence.split(" ")) {
@@ -290,22 +290,25 @@ console.log(getMaxChar("aaacc"));
 
 // ******************************************************************************
 function isBalanced(str) {
-  const stack = [];
-  for (let char of str) {
-    if (char === "(") {
-      stack.push(char);
-    } else {
-      const lastStackItem = stack.pop();
-      //it is not balanced if last item on array is not an opening paratisis
+  const stack = [];  // Create an empty array to use as a stack.
+  
+  for (let char of str) {  // Iterate over each character in the input string.
+    if (char === "(") {    // Check if the character is an opening parenthesis.
+      stack.push(char);     // Push it onto the stack.
+    } else {                // Otherwise, it must be a closing parenthesis.
+      const lastStackItem = stack.pop();  // Pop the last item from the stack.
+      
+      // Check if the last item in the stack was an opening parenthesis.
       if (lastStackItem !== "(") {
-        return false;
+        return false;       // If not, the string is unbalanced, so return false.
       }
     }
   }
 
-  if (stack.length !== 0) return false;
+  // After iterating through the string, check if there are any unmatched opening parentheses left in the stack.
+  if (stack.length !== 0) return false; // If the stack is not empty, return false.
 
-  return true;
+  return true; // If everything is balanced, return true.
 }
 
 //balanced
@@ -320,3 +323,66 @@ console.log(isBalanced("("));
 console.log(isBalanced(")"));
 console.log(isBalanced(")()("));
 console.log(isBalanced("(()))"));
+
+// -------------------------------------------------------------------------------------------
+
+const str = "Hello world123"
+
+// output = Hweolrllod123
+
+
+const mergeStrings =  function(str) {
+    let word =  str.split(" ");
+    
+    let firstWordStr = word[0];
+    let secondWordStr =  word[1];
+    let result = "";
+    
+    const maxlength = Math.max(firstWordStr.length, secondWordStr.length);
+    
+    for(let i = 0; i<maxlength; i++) {
+        if(i < firstWordStr.length) {
+             result += firstWordStr[i]; 
+        }
+        
+        if(i < secondWordStr.length) {
+             result += secondWordStr[i]; 
+        }
+    }
+    
+     return result; 
+   
+    
+}
+
+console.log(mergeStrings(str))
+
+// ----------------------------------------------------------------------------------------------
+
+// How would you optimize the process to prevent repeated API calls for the same user within a short time frame?
+ 
+
+let cache = {};
+
+function getUserData (userId)  {
+  if(cache[userId]) {
+    console.log("Fetching Data from cache");
+    return Promise.resolved(cache[userId])
+  }else {
+    console.log("Fetching aPI")
+    return fetch("URL")
+    .then((response) =>  response.json())
+    .then((data) => {
+      cache[userId] = data  /// store in cache
+      return data;
+    })
+  }
+  
+}
+
+// Usage
+getUserData(1).then((data) => console.log(data));
+getUserData(1).then((data) => console.log(data)); // This will use cache
+
+
+// ------------------------------------------------------------

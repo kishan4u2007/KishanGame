@@ -200,6 +200,13 @@ console.log({a:1} === { a:1})
 // console.log(personObj1)
 // console.log(personObj2)
 
+// Here, you're reassigning the person variable inside the function to a new object { name: "john", age: 50 }. However, 
+// this does not affect personObj1 because you're now making person point to a new object. The reference to the original 
+// object (personObj1) is broken.
+// // Returning the New Object: The function then returns the new object { name: "john", age: 50 }, and you assign this returned 
+// value to personObj2.
+// personObj1 was modified in the first step when its age was updated to 25, but it still refers to the original object:
+
 
 
 // Deep Copy and Shallow Copy

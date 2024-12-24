@@ -37,3 +37,172 @@ Array.prototype.myFilter = function (callback, context) {
   }
   return finalArray;
 };
+
+
+// *********************************************************************************
+
+
+const numbers = [1, 2, 3, 4, 5];
+
+Array.prototype.myReduce = function(callback, initialValue){
+    for (let i = 0; i < this.length; i++) {
+    initialValue = callback(initialValue, this[i], i, this);
+  }
+  return initialValue;
+    
+}
+
+// Using the custom reduce polyfill
+const sum = numbers.myReduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+console.log(sum); 
+
+// ************************************************************************
+
+function myMomoize(fn) {
+  const res = {};
+  return function (...args) {
+    const argsCache = JSON.stringify(args);
+    if (!res[argsCache]) {
+      res[argsCache] = fn.call(this, ...args);
+    }else {
+         console.log("Cache")
+    }
+    return res[argsCache];
+  };
+}
+
+const ClumsyProduct = (num1, num2) => {
+  return num1 + num2;
+};
+
+const memoizedClumsyProduct = myMomoize(ClumsyProduct);
+
+console.time("First Call");
+console.log(memoizedClumsyProduct(9467, 7649));
+console.timeEnd("First Call");
+
+console.time("First Call");
+console.log(memoizedClumsyProduct(9467, 7649));
+console.timeEnd("First Call");
+
+
+//Flattern Array
+
+const arr = [1,2,3, [4, 5, 6, [7,8,9]]]
+
+Array.prototype.customFlat =  function(depth = 1) {
+    depth =  Math.floor(depth);
+    
+    function flattern(arr, depth) {
+      return arr.reduce((acc, item) => {
+        if(Array.isArray(item) && depth > 0) {
+            acc.push(...flattern(item, depth - 1))
+        }else{
+            acc.push(item)
+        }
+        return acc
+    }, [])
+    }
+    
+  return flattern(this, depth)
+    //return depthCount
+}
+
+console.log(arr.customFlat(2))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//parent componet
+const parentComponent = () => {
+  const [dataFromChild, setDataFromChild] = useState([]);
+
+  const handleDataFromChild = (data) => {
+    setDataFromChild(data)
+  }
+
+  return (
+    <ChildComp onSendData={handleDataFromChild} />
+
+  )
+}
+
+
+//Child Component
+const ChildComp = ({onSendData}) => {
+  const [inputValue, setInputValue] = useState("")
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value)
+  }
+  const sendDatatoParent = () => {
+    onSendData(inputValue)
+  }
+  return (
+    <div>
+      <input type="text" value={inputValue} onChange={handleChange} />
+      <button onClick={sendDatatoParent}>Send Data to Parent</button>
+    </div>
+  )
+}
+
+
+//ThemeContext.js
+
+//App.js
+
+//ThemeToggleButton.js
+
+// Create a Context
+const ThemeContext = createContext();
+
+
+// Create a Provider Component
+const ThemeProvider = ({children}) => {
+  const [theme, setTheme] = useState("light");
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light") )
+  }
+  return (
+    <ThemeContext.Provider value={theme, toggleTheme}>
+      {children}
+    </ThemeContext.Provider>
+
+  )
+}
+
+const App = () => {
+  return (
+    <ThemeProvider>
+        <ThemeToggleButton />
+    </ThemeProvider>
+  )
+}
+
+import { ThemeContext } from './ThemeContext';
+
+const ThemeToggleButton = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  return (
+    <button onClick={toggleTheme}>
+        Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
+      </button>
+  )
+};
+

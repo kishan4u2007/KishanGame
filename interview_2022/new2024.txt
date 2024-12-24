@@ -1,0 +1,171 @@
+Promises
+1. What is a Promise in JavaScript, and why is it used? Practical Answer:
+A Promise represents the eventual result of an asynchronous operation. It provides a cleaner way to handle async code 
+compared to callbacks, reducing callback hell.
+
+const fetchData = () =>
+    new Promise((resolve, reject) => {
+        setTimeout(() => resolve("Data received"), 1000);
+    });
+
+fetchData().then((data) => console.log(data)); // Output: Data received
+
+
+2. How does Promise.all work, and when should you use it? Practical Answer:
+Promise.all resolves when all promises in the array resolve. If any promise is rejected, the entire Promise.all is rejected.
+
+const p1 = Promise.resolve(10);
+const p2 = Promise.resolve(20);
+const p3 = Promise.reject("Error!");
+
+Promise.all([p1, p2, p3])
+    .then((results) => console.log(results))
+    .catch((err) => console.log(err)); // Output: Error!
+
+Real-World Use: Parallel data fetching.
+
+
+3. What is the difference between Promise.all and Promise.race? Practical Answer:
+Promise.all: Resolves/rejects based on all promises.
+Promise.race: Resolves/rejects based on the first promise.
+
+
+4. How can you chain multiple promises? Practical Answer:
+Chaining allows sequential execution of asynchronous tasks.
+fetch("https://api.example.com/data")
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("Data processed:", data);
+        return fetch("https://api.example.com/extra");
+    })
+    .then((extraResponse) => console.log("Extra Data:", extraResponse));
+
+
+5. What is Promise.allSettled, and how does it differ from Promise.all?
+
+Promise.allSettled resolves when all promises are either fulfilled or rejected, returning an array of objects for 
+each promise’s outcome, unlike Promise.all, which rejects immediately on any promise failure.
+
+
+6. Can you provide a practical example of Promise.allSettled handling both resolved and rejected promises?
+
+const promises = [
+    Promise.resolve(10),
+    Promise.reject("Error"),
+    Promise.resolve(20),
+];
+
+Promise.allSettled(promises).then((results) =>
+    results.forEach((result) =>
+        console.log(result.status === "fulfilled" ? result.value : result.reason)
+    )
+);
+
+
+7. When would you use Promise.allSettled in real-world applications?
+
+For tasks where you want results from all promises, regardless of individual success or failure, such as fetching multiple APIs 
+and handling partial failures.
+
+
+8.  which one should use promise.all and promise.allsettled in js applicatipn
+
+
+In JavaScript, both Promise.all and Promise.allSettled are used to handle multiple promises concurrently, 
+but they serve different purposes based on how you want to handle the promises' results. Here's when to use each:
+
+Promise.all
+Use case: When you need all promises to succeed, and a failure in any promise should immediately reject the whole operation.
+
+Behavior:
+Resolves when all promises in the array are fulfilled.
+Rejects if any promise in the array is rejected.
+
+const fetchData1 = fetch('/api/data1');
+const fetchData2 = fetch('/api/data2');
+
+Promise.all([fetchData1, fetchData2])
+  .then(([response1, response2]) => {
+    // Process both responses
+  })
+  .catch((error) => {
+    // Handle error if any promise fails
+  });
+
+
+Ideal for:
+Dependent tasks where all promises must succeed.
+Scenarios where a single failure invalidates the overall operation.
+
+
+Promise.allSettled
+
+Use case: When you need the results of all promises regardless of whether they succeed or fail.
+Behavior:
+Resolves with an array of results for all promises, including both fulfilled and rejected states.
+Does not reject if a promise fails.
+
+
+const fetchData1 = fetch('/api/data1');
+const fetchData2 = fetch('/api/data2');
+
+Promise.allSettled([fetchData1, fetchData2])
+  .then((results) => {
+    results.forEach((result) => {
+      if (result.status === 'fulfilled') {
+        console.log('Fulfilled:', result.value);
+      } else {
+        console.log('Rejected:', result.reason);
+      }
+    });
+  });
+
+Ideal for:
+Independent tasks where the failure of one should not impact others.
+Aggregating results of all promises for further processing.
+
+
+
+
+
+----------------------------------------------------------------------------------------------
+
+
+Closures
+
+What is a closure in JavaScript? Explain with an example. Practical Answer:
+
+A closure is a function that has access to its own scope, the scope of the outer function, and the global scope, even after the outer function has returned.
+function createCounter() {
+    let count = 0; // Private variable
+    return function () {
+        count++;
+        return count;
+    };
+}
+
+const counter = createCounter();
+console.log(counter()); // Output: 1
+console.log(counter()); // Output: 2
+
+Real-World Use: Used in React hooks like useState to maintain state between renders.
+
+
+2. How do closures work with event listeners? Practical Answer:
+Closures allow event handlers to access variables from their outer scope, even after the event is triggered.
+function attachHandlers() {
+    const message = "Button clicked!";
+    document.querySelector("#btn").addEventListener("click", () => {
+        console.log(message);
+    });
+}
+
+attachHandlers();
+
+
+3. What are common use cases for closures in JavaScript? Practical Answer:
+
+Data hiding: Creating private variables (e.g., in APIs or SDKs).
+Memoization: Optimizing function calls by caching results.
+Factory functions: Reusable instances with shared logic.
+

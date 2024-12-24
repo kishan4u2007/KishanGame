@@ -10,12 +10,7 @@ let target = 9;
 //
 
 
-const twoSums = (nums, target) => {
-	// let storage = {};
-	// for (let [index, num] of nums.entries()) {
-	// 	if(storage[num] !== undefined) return [storage[num], index]
-	// 	storage[target - num] = index	
-	// }
+const twoSums = (nums, target) => {	
 	for(let i=0; i<nums.length; i++) {
 		for(j=i+1; j<nums.length; i++) {
 			if(nums[i] + nums[j] === target) {
@@ -124,39 +119,29 @@ console.log(cotainsDuplicate(nums))
 let prices = [7, 1, 5, 3, 6, 4];
 
 function maxProfit(prices) {
+    let buyPrice = prices[0]; // Initial buy price
+    let profit = 0; // Track profit
 
-	let buyPrice =  prices[0] // 7
+    // Go through the array and calculate profit
+    for (let i = 1; i < prices.length; i++) {
+        // If the current price is lower than the buy price, update the buy price
+        if (prices[i] < buyPrice) {
+            buyPrice = prices[i];
+        }
+        
+        // Calculate potential profit if sold at the current price
+        let tempProfit = prices[i] - buyPrice;
+        
+        // If the profit is greater than the previous one, update the profit
+        if (tempProfit > profit) {
+            profit = tempProfit;
+        }
+    }
 
-	// keep track of profit
-	let profit = 0;
-
-// go through the array and decide should i buy/ see if there is profit.
-for (let i=0; i<prices.length-1; i++) {
-	// if there is no profit , continue
-	let tempProfit = prices[i+1] - prices[i];
-
-	if(tempProfit = 0) {
-		//check my current purchase price is less than my old one
-		if(prices[i] < buyPrice) {
-			buyPrice = prices[i];
-		}
-
-		if(prices[i + 1] - buyPrice > profit) {
-			profit = prices[i + 1] - buyPrice;
-		}
-
-	}
-
+    return profit; // Return the maximum profit
 }
 
-// go through remaining array, and decide if i should sell
-// Record the profit and see if the new profit is more that my memorized profit
-// return profit
-
-return profit;
-
-
-}
+console.log(maxProfit(prices)); // Output: 5
 
 
 
@@ -287,3 +272,47 @@ const generateParanthesesNew = (n) => {
 //  k = how many times we repeated stuff
 //  [  = now i need to start storing what i want to repeat
 //  ]  = better start repeating
+
+
+// Certainly! If you want to write a JavaScript program that calculates the minimum number of notes needed to 
+// make 450 rupees, here’s an example:
+
+
+function getMinimumNotes(amount) {
+    const notes = [2000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
+    let noteCounter = {};
+
+    for (let i = 0; i < notes.length; i++) {
+        if (amount >= notes[i]) {
+            noteCounter[notes[i]] = Math.floor(amount / notes[i]);
+			
+            amount = amount % notes[i];
+        }
+    }
+
+    return noteCounter;
+}
+
+let amount = 450;
+let result = getMinimumNotes(amount);
+console.log(`Minimum notes required for ${amount} rupees are:`);
+for (let note in result) {
+    console.log(`${note} rupee notes: ${result[note]}`);
+}
+
+// ********************************************************************
+const array =  [1,2,4,5,6];
+const array2 =  [1,2,4,5,6];
+
+
+
+Array.prototype.findArrayLength =  function() {
+    let count;
+    const solution = this.reduce((count) => count + 1, 0);
+    return solution
+}
+
+console.log(array.findArrayLength());
+console.log(array2.findArrayLength());
+
+
