@@ -168,4 +168,3 @@ attachHandlers();
 Data hiding: Creating private variables (e.g., in APIs or SDKs).
 Memoization: Optimizing function calls by caching results.
 Factory functions: Reusable instances with shared logic.
-

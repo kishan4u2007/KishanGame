@@ -15,8 +15,8 @@ function largestOfFour(arr) {
 		var tempMax = arr[i][0];
 		for(j=0; j<arr[i].length; j++) {
 			var currentElemet = arr[i][j];
-			if(currentElemet >= tempArr) {
-				tempArr = currentElemet
+			if(currentElemet >= tempMax) {
+				tempMax = currentElemet
 			}
 		}
 
@@ -137,23 +137,6 @@ let sum = function(a) {
 }
 
 console.log(sum(1)(2)(3)(4)(5)())
-
-
-// Online Javascript Editor for free
-// Write, Edit and Run your Javascript code using JS Online Compiler
-
-function Sum(...args) {
-       const total = args.reduce((acc, num) => acc + num, 0);
-       
-       const innnerFun =  (...nextArg) => {
-          if(nextArg.length === 0) return total
-           return Sum(total, ...nextArg)
-         }
-      return innnerFun
-}
-
-console.log(Sum(1,2)())
-console.log(Sum(1)(2)())
 
 
 

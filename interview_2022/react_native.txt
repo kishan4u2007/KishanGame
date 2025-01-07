@@ -1,0 +1,192 @@
+1. What is the role of the bridge in React Native?
+
+The bridge enables asynchronous communication between JavaScript and native code. JavaScript runs in its thread and interacts with the native platform (iOS/Android) through the bridge.
+
+6. Explain the concept of Hot Reloading in React Native.
+
+Hot Reloading allows developers to inject updated code into a running app without restarting it. It retains the app’s state during the update.
+
+
+9. How do you integrate third-party libraries in React Native?
+
+Install using npm or yarn.
+
+Link native dependencies with react-native link or manually add configurations in iOS and Android.
+
+For modern libraries, use autolinking (React Native 0.60+).
+
+
+
+10. How do you debug React Native applications?
+
+Use React Native Debugger or Flipper.
+
+Enable Chrome DevTools for JavaScript debugging.
+
+Debug native code with Xcode or Android Studio.
+
+
+
+13. What is the purpose of PropTypes in React Native?
+
+PropTypes validate the props passed to a component to ensure correct data types and structure during development.
+
+
+14. How do you improve app startup time in React Native?
+
+Minimize JavaScript bundle size.
+
+Use TurboModules for lazy loading.
+
+Reduce bridge interactions.
+
+
+
+18. What is the difference between React.memo and useMemo?
+
+React.memo: Optimizes functional components by memoizing the entire component.
+
+useMemo: Memoizes a specific value or function.
+
+
+
+20. How do you handle device orientation changes in React Native?
+
+Use the useWindowDimensions hook or libraries like react-native-orientation-locker.
+
+
+
+22. How do you ensure code quality in React Native projects?
+
+Use ESLint and Prettier for linting and formatting.
+
+Enforce type safety with TypeScript.
+
+Write unit and integration tests with Jest and Detox.
+
+
+
+29. What are the advantages of using TypeScript in React Native?
+
+Enforces type safety.
+
+Improves code readability and maintainability.
+
+Catches errors during development.
+
+
+
+36. How do you implement dynamic themes in React Native?
+
+Use Context API to store the theme state and toggle it based on user preferences
+
+
+
+40. How do you handle deep linking?
+
+Configure deep link schemes in Info.plist (iOS) and AndroidManifest.xml (Android) and use the Linking API.
+
+
+
+What are you looking for in your next role? What would you like to avoid? (Might include aspects like technologies you want to work with, industries you’re interested in, team dynamics, software development practices … whatever is important to you) *
+
+In my next role, I’m looking for opportunities to work on cutting-edge web technologies like React, Node.js, and GraphQL while contributing to scalable, user-centric applications. 
+I value collaborative teams with strong communication, modern development practices (CI/CD, code reviews, Agile), and a focus on continuous learning.
+
+
+Describe what you are looking for in your next job
+
+In my next role, I’m seeking opportunities to leverage my expertise in frontend technologies like React, Next.js, and mobile development while expanding my knowledge in backend 
+frameworks like Node.js and GraphQL. I value a collaborative team environment with a focus on scalable, user-centric applications and modern software development practices. 
+I aim to work on impactful projects in a supportive, innovative setting with growth opportunities. I would like to avoid roles with limited scope for learning or minimal emphasis on 
+code quality and best practices.
+
+
+
+How do you ensure that existing technical documents are kept up to date and relevant?
+
+To ensure that technical documents remain up to date and relevant, I:
+
+Regular Reviews: Schedule periodic audits to check for outdated content or discrepancies.
+Team Collaboration: Engage developers and stakeholders to validate changes after updates or new features are implemented.
+Version Control: Use tools like Git to track document changes and ensure alignment with codebase updates.
+Automation: Implement tools to flag outdated references or dependencies.
+Feedback Loop: Encourage team feedback on unclear or incorrect documentation for prompt updates.
+
+
+Describe your experience with automated testing and creating testing harnesses.
+
+My experience with automated testing includes implementing unit, integration, and end-to-end tests using tools like Jest, Mocha, and Cypress. I've created custom test harnesses 
+to simulate real-world scenarios, particularly for React-based applications, ensuring component reliability and seamless state management with Redux.
+
+For API testing, I've used Postman and automated suites in Supertest for Node.js applications, validating endpoints and error handling. Additionally, 
+I integrate tests into CI/CD pipelines for continuous feedback, ensuring code quality and reducing regressions across deployments.
+
+
+
+How do you handle performance optimization in frontend applications?
+
+Handling performance optimization in frontend applications involves several strategies:
+
+Efficient Asset Management: Minify CSS/JS files, compress images, and leverage tools like Webpack or Vite for bundling and tree-shaking unused code.
+Lazy Loading: Load components, images, or data only when required using React's Suspense or dynamic imports.
+Code Splitting: Break down large bundles into smaller chunks using tools like Webpack or Rollup.
+Memoization: Use React.memo or useMemo to prevent unnecessary re-renders.
+Caching and CDN: Utilize browser caching and serve assets via a Content Delivery Network.
+Optimized API Calls: Use debouncing/throttling, batch API requests, and implement caching strategies.
+DOM Manipulation: Optimize with virtual scrolling and limit DOM updates using frameworks like React or performance libraries.
+
+
+
+
+How do you track and mitigate potential security risks during development?
+
+Tracking and mitigating potential security risks during development involves a proactive and systematic approach:
+
+Code Reviews: Conduct regular peer reviews to identify vulnerabilities like XSS, CSRF, or SQL injection.
+Static and Dynamic Analysis Tools: Use tools like SonarQube or Snyk to detect vulnerabilities in code and dependencies.
+Secure Authentication & Authorization: Implement robust OAuth, JWT, and role-based access controls.
+Data Handling: Encrypt sensitive data and validate all user inputs to prevent injection attacks.
+Dependency Management: Regularly update libraries and frameworks to address known vulnerabilities.
+Monitoring: Implement logging and monitor for suspicious activities.
+Security Training: Continuously educate developers on secure coding practices.
+
+
+
+
+
+Describe the concept of microfrontends and their advantages in application development.
+
+Microfrontends is an architectural style where a web application is divided into smaller, independent frontend components owned by separate teams. Each microfrontend can be developed, tested, deployed, and scaled independently, allowing diverse technologies and faster iteration.
+
+Advantages:
+Independent Development: Teams work on features autonomously.
+Scalability: Easy to scale individual components based on traffic.
+Technology Diversity: Teams can choose technologies per component.
+Modular Codebase: Easier maintenance and testing.
+Incremental Upgrades: Update or replace parts without impacting the whole application.
+Faster Time-to-Market: Streamlined development cycles.
+It mirrors the microservices concept but focuses on the frontend.
+
+
+
+
+What key contributions can you provide for the role based on your technical expertise?
+
+Based on my technical expertise, I can contribute the following key strengths to the role:
+
+Frontend Mastery: Proficiency in React, Next.js, and Redux to create scalable, maintainable, and user-centric applications.
+Backend Integration: Expertise in Node.js, GraphQL, and API design for seamless communication between frontend and backend.
+Performance Optimization: Experience in improving load times, minimizing render issues, and ensuring responsive interfaces.
+Collaborative Development: Strong leadership in code reviews, mentoring, and promoting best practices in agile environments.
+Security Awareness: Identifying and addressing vulnerabilities during development.
+
+
+
+
+
+
+
+
+
+

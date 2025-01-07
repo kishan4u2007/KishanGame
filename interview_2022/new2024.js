@@ -241,5 +241,35 @@ function findMissingNumber(nums) {
 console.log(findMissingNumber([3, 7, 1, 2, 8, 4, 5]))
 
 
+-----------------------
+
+
+// 4. Custom map, reduce, and filter functions
+
+//compressString
+
+const compressString = function(str) {
+  let memory = {};
+  let order = [];
+  for(let char of str) {
+      if(memory[char]) {
+          memory[char] ++
+      }else{
+          memory[char] = 1;
+           order.push(char);
+      }
+  }
+  
+//return memory
+ 
+const finalRes =  order.map(char => `${char}${memory[char]}`);
+return finalRes.join("")
+}
+
+
+
+
+console.log(compressString('AAABBDDDEEEE')); // Output: A3B2D3E4
+
 
 
